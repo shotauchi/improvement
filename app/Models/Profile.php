@@ -17,4 +17,9 @@ class Profile extends Model
         'hobby' => 'required',
         'introduction' => 'required',
     );
+    
+    public function rounds()
+    {
+        return $this->hasMany('App\Models\Round');
+    }
 }

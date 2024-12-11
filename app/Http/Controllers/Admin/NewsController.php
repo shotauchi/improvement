@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 use App\Models\News;
 
+use App\Models\History;
+
+use Carbon\Carbon;
+
 class NewsController extends Controller
 {
     public function add()
@@ -87,6 +91,11 @@ class NewsController extends Controller
 
         // 該当するデータを上書きして保存する
         $news->fill($news_form)->save();
+        
+        $history = new History();
+        $history->news_id = $news->id;
+        $history->edited_at = Carbon::now();
+        $history->save();
 
         return redirect('admin/news');
     }
